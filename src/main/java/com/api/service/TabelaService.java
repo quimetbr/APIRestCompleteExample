@@ -9,10 +9,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.api.controller.TabelaController;
 import com.api.entity.Tabela;
 import com.api.repository.TabelaRepository;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class TabelaService {
 	
@@ -49,5 +52,10 @@ public class TabelaService {
 		//	return tabelaRepository.save(tabela);
 		//}			
 		return tabelaRepository.save(tabela);
+	}
+	
+	public List<Tabela> getCustomQuery(String codigo) {
+		log.info("Dentro do service usar query customizada");
+		return tabelaRepository.useCustomQuery(codigo);
 	}
 }

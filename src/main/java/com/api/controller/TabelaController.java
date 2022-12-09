@@ -74,6 +74,18 @@ public class TabelaController {
 		return new ResponseEntity(lista, HttpStatus.OK);
 	}
 	
+	@GetMapping("/tabelas/customQuery/{codigo}")
+	public ResponseEntity<List<Tabela>> getCustomQueryTabela(@PathVariable("codigo") String codigo){
+		log.info("Dentro do GetMapping para usar query customizada");
+		List<Tabela> lista = tabelaService.getCustomQuery(codigo);
+		if (lista.isEmpty()) {
+			log.info("Sem lista que retornar");
+			APIError error = new APIError(HttpStatus.NOT_FOUND.value(), "Sem lista que retornar via customização");
+			return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity(lista, HttpStatus.OK);
+	}
+	
 
 	@GetMapping("/tabelas/paginas/")
 	//http://localhost:8080/tabelas/paginas/?page=0&size=10
